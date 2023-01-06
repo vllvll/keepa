@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/vllvll/keepa/proto";
+
+message AuthRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  string token = 1;
+}
+
+service Keepa {
+  rpc Login(AuthRequest) returns (AuthResponse);
+  rpc Register(AuthRequest) returns (AuthResponse);
+}
