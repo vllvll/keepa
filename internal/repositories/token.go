@@ -11,8 +11,8 @@ type Token struct {
 
 type TokenInterface interface {
 	IsExists(token string) bool
-	CreateToken(token string, userID int) error
-	GetUserIDByToken(token string) (userID int, err error)
+	CreateToken(token string, userID int64) error
+	GetUserIDByToken(token string) (userID int64, err error)
 }
 
 func NewTokenRepository(db *sql.DB) TokenInterface {
@@ -26,7 +26,7 @@ func (t *Token) IsExists(token string) bool {
 	return err == nil
 }
 
-func (t *Token) CreateToken(token string, userID int) error {
+func (t *Token) CreateToken(token string, userID int64) error {
 	_, err := t.db.Exec(
 		"INSERT INTO tokens (token, user_id, last_login) VALUES ($1, $2, $3)",
 		token,
@@ -41,7 +41,7 @@ func (t *Token) CreateToken(token string, userID int) error {
 	return nil
 }
 
-func (t *Token) GetUserIDByToken(token string) (userID int, err error) {
+func (t *Token) GetUserIDByToken(token string) (userID int64, err error) {
 	err = t.db.QueryRow("SELECT user_id FROM tokens WHERE token = $1 ORDER BY last_login LIMIT 1", token).Scan(&userID)
 	if err != nil {
 		return 0, err

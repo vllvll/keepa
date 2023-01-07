@@ -53,6 +53,65 @@ func ConnectDatabase(dsn string) (*sql.DB, error) {
 		
 		create unique index tokens_id_uindex
 			on tokens (id);
+
+		create table bank_cards
+		(
+			id         serial
+			    constraint bank_cards_pk
+				primary key,
+			number     text      not null,
+			holder     text      not null,
+			cvv        text      not null,
+			meta       text,
+			user_id    integer   not null
+				constraint bank_cards_users_id_fk
+					references users,
+			updated_at timestamp not null
+		);
+
+		alter table bank_cards
+			owner to postgres;
+
+		create unique index bank_cards_id_uindex
+			on bank_cards (id);
+
+		create table texts
+		(
+			id         serial
+			    constraint texts_pk
+				primary key,
+			content    text      not null,
+			meta       text,
+			user_id    integer   not null
+				constraint texts_users_id_fk
+					references users,
+			updated_at timestamp not null
+		);
+
+		alter table texts
+			owner to postgres;
+
+		create unique index texts_id_uindex
+			on texts (id);
+
+		create table binaries
+		(
+			id         serial
+			    constraint binaries_pk
+				primary key,
+			content    bytea      not null,
+			meta       text,
+			user_id    integer   not null
+				constraint binaries_users_id_fk
+					references users,
+			updated_at timestamp not null
+		);
+
+		alter table binaries
+			owner to postgres;
+
+		create unique index binaries_id_uindex
+			on binaries (id);
 	`)
 
 	if err != nil {

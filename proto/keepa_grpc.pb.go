@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -24,6 +25,18 @@ const _ = grpc.SupportPackageIsVersion7
 type KeepaClient interface {
 	Login(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 	Register(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+	GetBankCard(ctx context.Context, in *GetBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error)
+	CreateBankCard(ctx context.Context, in *CreateBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error)
+	UpdateBankCard(ctx context.Context, in *UpdateBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error)
+	DeleteBankCard(ctx context.Context, in *DeleteBankCardRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetText(ctx context.Context, in *GetTextRequest, opts ...grpc.CallOption) (*TextResponse, error)
+	CreateText(ctx context.Context, in *CreateTextRequest, opts ...grpc.CallOption) (*TextResponse, error)
+	UpdateText(ctx context.Context, in *UpdateTextRequest, opts ...grpc.CallOption) (*TextResponse, error)
+	DeleteText(ctx context.Context, in *DeleteTextRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetBinary(ctx context.Context, in *GetBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error)
+	CreateBinary(ctx context.Context, in *CreateBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error)
+	UpdateBinary(ctx context.Context, in *UpdateBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error)
+	DeleteBinary(ctx context.Context, in *DeleteBinaryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type keepaClient struct {
@@ -52,12 +65,132 @@ func (c *keepaClient) Register(ctx context.Context, in *AuthRequest, opts ...grp
 	return out, nil
 }
 
+func (c *keepaClient) GetBankCard(ctx context.Context, in *GetBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error) {
+	out := new(BankCardResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/GetBankCard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) CreateBankCard(ctx context.Context, in *CreateBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error) {
+	out := new(BankCardResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/CreateBankCard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) UpdateBankCard(ctx context.Context, in *UpdateBankCardRequest, opts ...grpc.CallOption) (*BankCardResponse, error) {
+	out := new(BankCardResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/UpdateBankCard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) DeleteBankCard(ctx context.Context, in *DeleteBankCardRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/DeleteBankCard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) GetText(ctx context.Context, in *GetTextRequest, opts ...grpc.CallOption) (*TextResponse, error) {
+	out := new(TextResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/GetText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) CreateText(ctx context.Context, in *CreateTextRequest, opts ...grpc.CallOption) (*TextResponse, error) {
+	out := new(TextResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/CreateText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) UpdateText(ctx context.Context, in *UpdateTextRequest, opts ...grpc.CallOption) (*TextResponse, error) {
+	out := new(TextResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/UpdateText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) DeleteText(ctx context.Context, in *DeleteTextRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/DeleteText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) GetBinary(ctx context.Context, in *GetBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error) {
+	out := new(BinaryResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/GetBinary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) CreateBinary(ctx context.Context, in *CreateBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error) {
+	out := new(BinaryResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/CreateBinary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) UpdateBinary(ctx context.Context, in *UpdateBinaryRequest, opts ...grpc.CallOption) (*BinaryResponse, error) {
+	out := new(BinaryResponse)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/UpdateBinary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keepaClient) DeleteBinary(ctx context.Context, in *DeleteBinaryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/proto.Keepa/DeleteBinary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeepaServer is the server API for Keepa service.
 // All implementations must embed UnimplementedKeepaServer
 // for forward compatibility
 type KeepaServer interface {
 	Login(context.Context, *AuthRequest) (*AuthResponse, error)
 	Register(context.Context, *AuthRequest) (*AuthResponse, error)
+	GetBankCard(context.Context, *GetBankCardRequest) (*BankCardResponse, error)
+	CreateBankCard(context.Context, *CreateBankCardRequest) (*BankCardResponse, error)
+	UpdateBankCard(context.Context, *UpdateBankCardRequest) (*BankCardResponse, error)
+	DeleteBankCard(context.Context, *DeleteBankCardRequest) (*emptypb.Empty, error)
+	GetText(context.Context, *GetTextRequest) (*TextResponse, error)
+	CreateText(context.Context, *CreateTextRequest) (*TextResponse, error)
+	UpdateText(context.Context, *UpdateTextRequest) (*TextResponse, error)
+	DeleteText(context.Context, *DeleteTextRequest) (*emptypb.Empty, error)
+	GetBinary(context.Context, *GetBinaryRequest) (*BinaryResponse, error)
+	CreateBinary(context.Context, *CreateBinaryRequest) (*BinaryResponse, error)
+	UpdateBinary(context.Context, *UpdateBinaryRequest) (*BinaryResponse, error)
+	DeleteBinary(context.Context, *DeleteBinaryRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedKeepaServer()
 }
 
@@ -70,6 +203,42 @@ func (UnimplementedKeepaServer) Login(context.Context, *AuthRequest) (*AuthRespo
 }
 func (UnimplementedKeepaServer) Register(context.Context, *AuthRequest) (*AuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedKeepaServer) GetBankCard(context.Context, *GetBankCardRequest) (*BankCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBankCard not implemented")
+}
+func (UnimplementedKeepaServer) CreateBankCard(context.Context, *CreateBankCardRequest) (*BankCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBankCard not implemented")
+}
+func (UnimplementedKeepaServer) UpdateBankCard(context.Context, *UpdateBankCardRequest) (*BankCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBankCard not implemented")
+}
+func (UnimplementedKeepaServer) DeleteBankCard(context.Context, *DeleteBankCardRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBankCard not implemented")
+}
+func (UnimplementedKeepaServer) GetText(context.Context, *GetTextRequest) (*TextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetText not implemented")
+}
+func (UnimplementedKeepaServer) CreateText(context.Context, *CreateTextRequest) (*TextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateText not implemented")
+}
+func (UnimplementedKeepaServer) UpdateText(context.Context, *UpdateTextRequest) (*TextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateText not implemented")
+}
+func (UnimplementedKeepaServer) DeleteText(context.Context, *DeleteTextRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteText not implemented")
+}
+func (UnimplementedKeepaServer) GetBinary(context.Context, *GetBinaryRequest) (*BinaryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBinary not implemented")
+}
+func (UnimplementedKeepaServer) CreateBinary(context.Context, *CreateBinaryRequest) (*BinaryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBinary not implemented")
+}
+func (UnimplementedKeepaServer) UpdateBinary(context.Context, *UpdateBinaryRequest) (*BinaryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBinary not implemented")
+}
+func (UnimplementedKeepaServer) DeleteBinary(context.Context, *DeleteBinaryRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteBinary not implemented")
 }
 func (UnimplementedKeepaServer) mustEmbedUnimplementedKeepaServer() {}
 
@@ -120,6 +289,222 @@ func _Keepa_Register_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Keepa_GetBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBankCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).GetBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/GetBankCard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).GetBankCard(ctx, req.(*GetBankCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_CreateBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBankCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).CreateBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/CreateBankCard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).CreateBankCard(ctx, req.(*CreateBankCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_UpdateBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBankCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).UpdateBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/UpdateBankCard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).UpdateBankCard(ctx, req.(*UpdateBankCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_DeleteBankCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBankCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).DeleteBankCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/DeleteBankCard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).DeleteBankCard(ctx, req.(*DeleteBankCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_GetText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).GetText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/GetText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).GetText(ctx, req.(*GetTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_CreateText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).CreateText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/CreateText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).CreateText(ctx, req.(*CreateTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_UpdateText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).UpdateText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/UpdateText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).UpdateText(ctx, req.(*UpdateTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_DeleteText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).DeleteText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/DeleteText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).DeleteText(ctx, req.(*DeleteTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_GetBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBinaryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).GetBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/GetBinary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).GetBinary(ctx, req.(*GetBinaryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_CreateBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBinaryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).CreateBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/CreateBinary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).CreateBinary(ctx, req.(*CreateBinaryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_UpdateBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBinaryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).UpdateBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/UpdateBinary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).UpdateBinary(ctx, req.(*UpdateBinaryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Keepa_DeleteBinary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteBinaryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeepaServer).DeleteBinary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Keepa/DeleteBinary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeepaServer).DeleteBinary(ctx, req.(*DeleteBinaryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Keepa_ServiceDesc is the grpc.ServiceDesc for Keepa service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +519,54 @@ var Keepa_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Register",
 			Handler:    _Keepa_Register_Handler,
+		},
+		{
+			MethodName: "GetBankCard",
+			Handler:    _Keepa_GetBankCard_Handler,
+		},
+		{
+			MethodName: "CreateBankCard",
+			Handler:    _Keepa_CreateBankCard_Handler,
+		},
+		{
+			MethodName: "UpdateBankCard",
+			Handler:    _Keepa_UpdateBankCard_Handler,
+		},
+		{
+			MethodName: "DeleteBankCard",
+			Handler:    _Keepa_DeleteBankCard_Handler,
+		},
+		{
+			MethodName: "GetText",
+			Handler:    _Keepa_GetText_Handler,
+		},
+		{
+			MethodName: "CreateText",
+			Handler:    _Keepa_CreateText_Handler,
+		},
+		{
+			MethodName: "UpdateText",
+			Handler:    _Keepa_UpdateText_Handler,
+		},
+		{
+			MethodName: "DeleteText",
+			Handler:    _Keepa_DeleteText_Handler,
+		},
+		{
+			MethodName: "GetBinary",
+			Handler:    _Keepa_GetBinary_Handler,
+		},
+		{
+			MethodName: "CreateBinary",
+			Handler:    _Keepa_CreateBinary_Handler,
+		},
+		{
+			MethodName: "UpdateBinary",
+			Handler:    _Keepa_UpdateBinary_Handler,
+		},
+		{
+			MethodName: "DeleteBinary",
+			Handler:    _Keepa_DeleteBinary_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

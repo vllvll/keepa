@@ -34,6 +34,9 @@ func main() {
 
 	userRepository := repositories.NewUserRepository(db)
 	tokenRepository := repositories.NewTokenRepository(db)
+	bankCardRepository := repositories.NewBankCardRepository(db)
+	textRepository := repositories.NewTextRepository(db)
+	binaryRepository := repositories.NewBinaryRepository(db)
 	cryptService := services.NewCrypt(config.Key)
 
 	s := grpc.NewServer(grpc.ChainUnaryInterceptor(middlewares.TrustSubnet(), middlewares.Auth(userRepository, tokenRepository)))
@@ -44,7 +47,15 @@ func main() {
 			log.Fatal(err)
 		}
 
-		pb.RegisterKeepaServer(s, handlers.NewHandler(userRepository, tokenRepository, cryptService))
+		pb.RegisterKeepaServer(s, handlers.NewHandler(
+			userRepository,
+			tokenRepository,
+			bankCardRepository,
+			textRepository,
+			binaryRepository,
+			cryptService,
+		),
+		)
 
 		if err := s.Serve(listen); err != nil {
 			log.Fatal(err)
