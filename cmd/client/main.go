@@ -2,6 +2,9 @@
 package main
 
 import (
+	"fmt"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/vllvll/keepa/internal/pages"
 	"log"
 	"os"
 	"text/template"
@@ -28,6 +31,14 @@ func main() {
 	})
 	if err != nil {
 		log.Fatalf("Error with config: %v", err)
+	}
+
+	authModel := pages.NewAuthModel()
+	p := tea.NewProgram(authModel)
+
+	if _, err := p.Run(); err != nil {
+		fmt.Println("Error running program:", err)
+		os.Exit(1)
 	}
 
 	//config, err := conf.CreateAgentConfig()
