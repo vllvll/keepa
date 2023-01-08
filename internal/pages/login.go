@@ -1,13 +1,13 @@
 package pages
 
 import (
+	"context"
 	"fmt"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/vllvll/keepa/internal/services"
 	pb "github.com/vllvll/keepa/proto"
-	"golang.org/x/net/context"
 	"strings"
 )
 
@@ -110,9 +110,7 @@ func (m LoginModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				//
 				//fmt.Println(text)
 
-				menuModel := NewMenuModel()
-
-				return menuModel, menuModel.Init()
+				return NewMenuModel(), nil
 			}
 
 			// Cycle indexes

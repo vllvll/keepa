@@ -22,8 +22,13 @@ func NewAuthModel() AuthModel {
 		item{key: "Registration", title: "Register", desc: "New user"},
 	}
 
-	m := AuthModel{list: list.New(items, list.NewDefaultDelegate(), 0, 0)}
+	m := AuthModel{list: list.New(items, list.NewDefaultDelegate(), 20, 20)}
 	m.list.Title = "Keepa"
+
+	if WindowSize.Height != 0 {
+		top, right, bottom, left := DocStyle.GetMargin()
+		m.list.SetSize(WindowSize.Width-left-right, WindowSize.Height-top-bottom-1)
+	}
 
 	return m
 }
@@ -33,6 +38,8 @@ type AuthModel struct {
 }
 
 func (m AuthModel) Init() tea.Cmd {
+	m.list.View()
+
 	return nil
 }
 
