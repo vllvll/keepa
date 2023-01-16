@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/empty.proto";
+import "binary.proto";
+import "text.proto";
+import "card.proto";
+import "auth.proto";
+
+option go_package = "github.com/vllvll/keepa/proto";
+
+service Keepa {
+  rpc Login(auth.AuthRequest) returns (auth.AuthResponse);
+  rpc Register(auth.AuthRequest) returns (auth.AuthResponse);
+
+  rpc GetBankCard(card.GetBankCardRequest) returns (card.BankCardResponse);
+  rpc CreateBankCard(card.CreateBankCardRequest) returns (card.BankCardResponse);
+  rpc UpdateBankCard(card.UpdateBankCardRequest) returns (card.BankCardResponse);
+  rpc DeleteBankCard(card.DeleteBankCardRequest) returns (google.protobuf.Empty);
+
+  rpc GetText(text.GetTextRequest) returns (text.TextResponse);
+  rpc CreateText(text.CreateTextRequest) returns (text.TextResponse);
+  rpc UpdateText(text.UpdateTextRequest) returns (text.TextResponse);
+  rpc DeleteText(text.DeleteTextRequest) returns (google.protobuf.Empty);
+
+  rpc GetBinary(binary.GetBinaryRequest) returns (binary.BinaryResponse);
+  rpc CreateBinary(binary.CreateBinaryRequest) returns (binary.BinaryResponse);
+  rpc UpdateBinary(binary.UpdateBinaryRequest) returns (binary.BinaryResponse);
+  rpc DeleteBinary(binary.DeleteBinaryRequest) returns (google.protobuf.Empty);
+}
