@@ -2,8 +2,13 @@ package repositories
 
 import (
 	"database/sql"
-	"github.com/vllvll/keepa/internal/types"
+	"log"
 	"time"
+
+	"github.com/jackc/pgerrcode"
+	"github.com/lib/pq"
+
+	"github.com/vllvll/keepa/internal/types"
 )
 
 type Text struct {
@@ -24,7 +29,12 @@ func NewTextRepository(db *sql.DB) TextInterface {
 func (b *Text) Get(id int64) (text types.Text, err error) {
 	err = b.db.QueryRow("SELECT id, content, meta, updated_at FROM texts WHERE id = $1 LIMIT 1", id).
 		Scan(&text.ID, &text.Content, &text.Meta, &text.UpdatedAt)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return types.Text{}, err
 	}
 
@@ -43,7 +53,11 @@ func (b *Text) Create(text types.Text, userId int64) (int64, error) {
 	)
 
 	err := row.Scan(&textID)
-	if err != nil {
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return textID, err
 	}
 
@@ -58,7 +72,11 @@ func (b *Text) Update(text types.Text) error {
 		text.Meta,
 		time.Now(),
 	)
-	if err != nil {
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 
@@ -70,7 +88,12 @@ func (b *Text) Delete(textID int64) error {
 		"DELETE FROM texts WHERE id = $1",
 		textID,
 	)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 

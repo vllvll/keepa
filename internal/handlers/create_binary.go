@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"context"
-	"github.com/vllvll/keepa/internal/types"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	pb "github.com/vllvll/keepa/gen"
+	"github.com/vllvll/keepa/internal/types"
 )
 
 func (k *KeepaServer) CreateBinary(ctx context.Context, in *pb.CreateBinaryRequest) (*pb.BinaryResponse, error) {
@@ -25,16 +27,11 @@ func (k *KeepaServer) CreateBinary(ctx context.Context, in *pb.CreateBinaryReque
 		return nil, status.Error(codes.Internal, "Internal")
 	}
 
-	binary, err = k.binaryRepository.Get(binaryId)
-	if err != nil {
-		return nil, status.Error(codes.NotFound, "Not found")
-	}
-
 	binaryResponse := pb.BinaryResponse{
 		Meta:      binary.Meta,
-		Id:        binary.ID,
+		Id:        binaryId,
 		Binary:    binary.Content,
-		UpdatedAt: timestamppb.New(binary.UpdatedAt),
+		UpdatedAt: timestamppb.Now(),
 	}
 
 	return &binaryResponse, nil

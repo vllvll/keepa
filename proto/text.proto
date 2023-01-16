@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package text;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vllvll/keepa/proto";
+
+message GetTextRequest {
+int64 id = 2;
+}
+
+message CreateTextRequest {
+string meta = 1;
+string text = 2;
+}
+
+message UpdateTextRequest {
+string meta = 1;
+int64 id = 2;
+string text = 3;
+}
+
+message DeleteTextRequest {
+int64 id = 2;
+}
+
+message TextResponse {
+string meta = 1;
+int64 id = 2;
+string text = 3;
+google.protobuf.Timestamp updated_at = 4;
+}

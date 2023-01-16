@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"context"
-	"github.com/vllvll/keepa/internal/types"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	pb "github.com/vllvll/keepa/gen"
+	"github.com/vllvll/keepa/internal/types"
 )
 
 func (k *KeepaServer) UpdateText(ctx context.Context, in *pb.UpdateTextRequest) (*pb.TextResponse, error) {
@@ -23,11 +25,6 @@ func (k *KeepaServer) UpdateText(ctx context.Context, in *pb.UpdateTextRequest) 
 
 	err := k.textRepository.Update(text)
 	if err != nil {
-		return nil, status.Error(codes.Internal, "Internal")
-	}
-
-	text, err = k.textRepository.Get(in.GetId())
-	if err != nil {
 		return nil, status.Error(codes.NotFound, "Not found")
 	}
 
@@ -35,7 +32,7 @@ func (k *KeepaServer) UpdateText(ctx context.Context, in *pb.UpdateTextRequest) 
 		Meta:      text.Meta,
 		Id:        text.ID,
 		Text:      text.Content,
-		UpdatedAt: timestamppb.New(text.UpdatedAt),
+		UpdatedAt: timestamppb.Now(),
 	}
 
 	return &textResponse, nil

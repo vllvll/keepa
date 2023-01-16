@@ -2,12 +2,14 @@ package services
 
 import (
 	"context"
-	pb "github.com/vllvll/keepa/proto"
+	"log"
+	"sync"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
-	"log"
-	"sync"
+
+	pb "github.com/vllvll/keepa/gen"
 )
 
 var (

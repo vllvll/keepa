@@ -2,8 +2,13 @@ package repositories
 
 import (
 	"database/sql"
-	"github.com/vllvll/keepa/internal/types"
+	"log"
 	"time"
+
+	"github.com/jackc/pgerrcode"
+	"github.com/lib/pq"
+
+	"github.com/vllvll/keepa/internal/types"
 )
 
 type User struct {
@@ -25,7 +30,15 @@ func (u *User) IsExists(login string) (isExist bool) {
 	var count int
 	err := u.db.QueryRow("SELECT 1 FROM users WHERE login = $1 LIMIT 1", login).Scan(&count)
 
-	return err == nil
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
+		return false
+	}
+
+	return true
 }
 
 func (u *User) CreateUser(login string, password string) (id int64, err error) {
@@ -36,7 +49,11 @@ func (u *User) CreateUser(login string, password string) (id int64, err error) {
 		time.Now(),
 	).Scan(&id)
 
-	if err != nil {
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return 0, err
 	}
 
@@ -45,7 +62,12 @@ func (u *User) CreateUser(login string, password string) (id int64, err error) {
 
 func (u *User) GetUserHashByLogin(login string) (user types.User, err error) {
 	err = u.db.QueryRow("SELECT id, login, password_hash FROM users WHERE login = $1 LIMIT 1", login).Scan(&user.ID, &user.Login, &user.Hash)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return types.User{}, err
 	}
 
@@ -54,7 +76,12 @@ func (u *User) GetUserHashByLogin(login string) (user types.User, err error) {
 
 func (u *User) GetUserByID(userID int64) (user types.User, err error) {
 	err = u.db.QueryRow("SELECT id, login, password_hash FROM users WHERE id = $1 LIMIT 1", userID).Scan(&user.ID, &user.Login, &user.Hash)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return types.User{}, err
 	}
 

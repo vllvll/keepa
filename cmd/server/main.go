@@ -1,22 +1,24 @@
 package main
 
 import (
-	"github.com/vllvll/keepa/internal/handlers"
-	"github.com/vllvll/keepa/internal/middlewares"
-	"github.com/vllvll/keepa/internal/repositories"
-	"github.com/vllvll/keepa/internal/services"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"google.golang.org/grpc"
+
+	"github.com/vllvll/keepa/internal/handlers"
+	"github.com/vllvll/keepa/internal/middlewares"
+	"github.com/vllvll/keepa/internal/repositories"
+	"github.com/vllvll/keepa/internal/services"
+
 	conf "github.com/vllvll/keepa/internal/config"
 	"github.com/vllvll/keepa/pkg/postgres"
 
 	// Импортируем пакет со сгенерированными protobuf-файлами
-	pb "github.com/vllvll/keepa/proto"
+	pb "github.com/vllvll/keepa/gen"
 )
 
 func main() {

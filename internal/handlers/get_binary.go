@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"context"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	pb "github.com/vllvll/keepa/gen"
 )
 
 func (k *KeepaServer) GetBinary(ctx context.Context, in *pb.GetBinaryRequest) (*pb.BinaryResponse, error) {

@@ -3,11 +3,13 @@ package main
 
 import (
 	"fmt"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/vllvll/keepa/internal/pages"
 	"log"
 	"os"
 	"text/template"
+
+	tea "github.com/charmbracelet/bubbletea"
+
+	"github.com/vllvll/keepa/internal/pages"
 )
 
 var (
@@ -40,64 +42,4 @@ func main() {
 		fmt.Println("Error running program:", err)
 		os.Exit(1)
 	}
-
-	//config, err := conf.CreateAgentConfig()
-	//if err != nil {
-	//	log.Fatalf("Error with config: %v", err)
-	//}
-	//
-	//var pollCount types.Counter
-	//
-	//crypt, err := services.NewMetricEncrypt(config.CryptoKey)
-	//if err != nil {
-	//	log.Fatalf("Ошибка с инициализацией сервиса шифрования: %v", err)
-	//}
-	//
-	//signer := services.NewMetricSigner(config.Key)
-	//sender, err := services.NewGRPCSendClient(config, signer, crypt)
-	//if err != nil {
-	//	log.Fatalf("Ошибка с иницализацией сервиса http клиента: %v", err)
-	//}
-	//constants := dictionaries.NewMemConstants()
-	//memRepository := repositories.NewMemRepository(constants)
-	//
-	//ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
-	//defer stop()
-	//
-	//errCh := make(chan error)
-	//gaugesCh := make(chan types.Gauges)
-	//counterCh := make(chan types.Counters)
-	//metricCh := make(chan types.Metrics)
-	//
-	//var pollTick = time.Tick(config.PollInterval)
-	//var reportTick = time.Tick(config.ReportInterval)
-	//var reportMain = time.Tick(config.ReportInterval)
-	//
-	//go sender.Prepare(ctx, gaugesCh, counterCh, metricCh, errCh)
-	//go sender.Send(ctx, metricCh, reportTick, errCh)
-	//
-	//for {
-	//	select {
-	//	case <-ctx.Done():
-	//		close(gaugesCh)
-	//		close(counterCh)
-	//		close(errCh)
-	//
-	//		return
-	//
-	//	case <-pollTick:
-	//		go memRepository.GetGauges(ctx, gaugesCh, errCh)
-	//		go memRepository.GetAdditionalGauges(ctx, gaugesCh, errCh)
-	//
-	//		pollCount++
-	//
-	//	case <-reportMain:
-	//		counterCh <- types.Counters{dictionaries.CounterPollCount: pollCount}
-	//
-	//		pollCount = 0
-	//
-	//	case <-errCh:
-	//		log.Printf("Error: %v\n", err)
-	//	}
-	//}
 }

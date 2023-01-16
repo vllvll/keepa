@@ -60,9 +60,9 @@ func (m AuthModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			if selectedItem.key == "Registration" {
-				loginModel := NewLoginModel()
+				registerModel := NewRegisterModel()
 
-				return loginModel, loginModel.Init()
+				return registerModel, registerModel.Init()
 			}
 		}
 	case tea.WindowSizeMsg:

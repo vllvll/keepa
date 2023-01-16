@@ -2,13 +2,15 @@ package middlewares
 
 import (
 	"context"
-	conf "github.com/vllvll/keepa/internal/config"
+	"log"
+	"net"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"log"
-	"net"
+
+	conf "github.com/vllvll/keepa/internal/config"
 )
 
 func TrustSubnet() grpc.UnaryServerInterceptor {

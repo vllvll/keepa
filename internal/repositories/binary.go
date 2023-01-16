@@ -2,8 +2,13 @@ package repositories
 
 import (
 	"database/sql"
-	"github.com/vllvll/keepa/internal/types"
+	"log"
 	"time"
+
+	"github.com/jackc/pgerrcode"
+	"github.com/lib/pq"
+
+	"github.com/vllvll/keepa/internal/types"
 )
 
 type Binary struct {
@@ -24,7 +29,12 @@ func NewBinaryRepository(db *sql.DB) BinaryInterface {
 func (b *Binary) Get(id int64) (text types.Binary, err error) {
 	err = b.db.QueryRow("SELECT id, content, meta, updated_at FROM binaries WHERE id = $1 LIMIT 1", id).
 		Scan(&text.ID, &text.Content, &text.Meta, &text.UpdatedAt)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return types.Binary{}, err
 	}
 
@@ -43,7 +53,12 @@ func (b *Binary) Create(text types.Binary, userId int64) (int64, error) {
 	)
 
 	err := row.Scan(&textID)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return textID, err
 	}
 
@@ -58,7 +73,12 @@ func (b *Binary) Update(text types.Binary) error {
 		text.Meta,
 		time.Now(),
 	)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 
@@ -70,7 +90,12 @@ func (b *Binary) Delete(textID int64) error {
 		"DELETE FROM binaries WHERE id = $1",
 		textID,
 	)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 

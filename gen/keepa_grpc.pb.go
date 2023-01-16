@@ -2,12 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.21.8
-// source: proto/keepa.proto
+// source: keepa.proto
 
 package proto
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -570,5 +571,5 @@ var Keepa_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/keepa.proto",
+	Metadata: "keepa.proto",
 }

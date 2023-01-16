@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package binary;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vllvll/keepa/proto";
+
+message GetBinaryRequest {
+  int64 id = 1;
+}
+
+message CreateBinaryRequest {
+  string meta = 1;
+  bytes binary = 2;
+}
+
+message UpdateBinaryRequest {
+  string meta = 1;
+  int64 id = 2;
+  bytes binary = 3;
+}
+
+message DeleteBinaryRequest {
+  int64 id = 1;
+}
+
+message BinaryResponse {
+  string meta = 1;
+  int64 id = 2;
+  bytes binary = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}

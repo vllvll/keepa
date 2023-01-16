@@ -2,7 +2,11 @@ package repositories
 
 import (
 	"database/sql"
+	"log"
 	"time"
+
+	"github.com/jackc/pgerrcode"
+	"github.com/lib/pq"
 )
 
 type Token struct {
@@ -23,7 +27,15 @@ func (t *Token) IsExists(token string) bool {
 	var count int
 	err := t.db.QueryRow("SELECT 1 FROM tokens WHERE token = $1 ORDER BY last_login LIMIT 1", token).Scan(&count)
 
-	return err == nil
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
+		return false
+	}
+
+	return true
 }
 
 func (t *Token) CreateToken(token string, userID int64) error {
@@ -34,7 +46,11 @@ func (t *Token) CreateToken(token string, userID int64) error {
 		time.Now(),
 	)
 
-	if err != nil {
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 
@@ -43,7 +59,12 @@ func (t *Token) CreateToken(token string, userID int64) error {
 
 func (t *Token) GetUserIDByToken(token string) (userID int64, err error) {
 	err = t.db.QueryRow("SELECT user_id FROM tokens WHERE token = $1 ORDER BY last_login LIMIT 1", token).Scan(&userID)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return 0, err
 	}
 

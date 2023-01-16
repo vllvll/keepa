@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"context"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
+
+	pb "github.com/vllvll/keepa/gen"
 )
 
 func (k *KeepaServer) DeleteBinary(ctx context.Context, in *pb.DeleteBinaryRequest) (*emptypb.Empty, error) {
@@ -18,7 +20,7 @@ func (k *KeepaServer) DeleteBinary(ctx context.Context, in *pb.DeleteBinaryReque
 
 	err := k.binaryRepository.Delete(binaryId)
 	if err != nil {
-		return nil, status.Error(codes.Internal, "Internal")
+		return nil, status.Error(codes.NotFound, "Not found")
 	}
 
 	return new(emptypb.Empty), nil

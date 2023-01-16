@@ -3,12 +3,14 @@ package pages
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+
+	pb "github.com/vllvll/keepa/gen"
 	"github.com/vllvll/keepa/internal/services"
-	pb "github.com/vllvll/keepa/proto"
-	"strings"
 )
 
 var (
@@ -100,15 +102,6 @@ func (m LoginModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 
 				grpc.SetToken(response.GetToken())
-
-				//requestTwo := pb.GetTextRequest{Id: 1}
-				//
-				//text, err := grpc.Client.GetText(grpc.GetContext(), &requestTwo)
-				//if err != nil {
-				//	return m, tea.Quit
-				//}
-				//
-				//fmt.Println(text)
 
 				return NewMenuModel(), nil
 			}

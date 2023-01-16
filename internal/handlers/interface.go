@@ -3,10 +3,11 @@ package handlers
 
 import (
 	"context"
+
+	pb "github.com/vllvll/keepa/gen"
 	"github.com/vllvll/keepa/internal/repositories"
 	"github.com/vllvll/keepa/internal/services"
 	"github.com/vllvll/keepa/internal/types"
-	pb "github.com/vllvll/keepa/proto"
 )
 
 // KeepaServer поддерживает все необходимые методы сервера.

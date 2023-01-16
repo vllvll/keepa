@@ -8,7 +8,9 @@ require (
 	github.com/charmbracelet/bubbletea v0.23.1
 	github.com/charmbracelet/lipgloss v0.6.0
 	github.com/gordonklaus/ineffassign v0.0.0-20210914165742-4cc7213b9bc8
+	github.com/jackc/pgerrcode v0.0.0-20220416144525-469b46aa5efa
 	github.com/jackc/pgx/v4 v4.16.1
+	github.com/lib/pq v1.10.2
 	github.com/orijtech/structslop v0.0.6
 	github.com/spf13/pflag v1.0.5
 	golang.org/x/tools v0.1.12

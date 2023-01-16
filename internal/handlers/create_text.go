@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"context"
-	"github.com/vllvll/keepa/internal/types"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	pb "github.com/vllvll/keepa/gen"
+	"github.com/vllvll/keepa/internal/types"
 )
 
 func (k *KeepaServer) CreateText(ctx context.Context, in *pb.CreateTextRequest) (*pb.TextResponse, error) {
@@ -25,16 +27,11 @@ func (k *KeepaServer) CreateText(ctx context.Context, in *pb.CreateTextRequest) 
 		return nil, status.Error(codes.Internal, "Internal")
 	}
 
-	text, err = k.textRepository.Get(textId)
-	if err != nil {
-		return nil, status.Error(codes.NotFound, "Not found")
-	}
-
 	bankCardResponse := pb.TextResponse{
 		Meta:      text.Meta,
-		Id:        text.ID,
+		Id:        textId,
 		Text:      text.Content,
-		UpdatedAt: timestamppb.New(text.UpdatedAt),
+		UpdatedAt: timestamppb.Now(),
 	}
 
 	return &bankCardResponse, nil

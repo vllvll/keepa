@@ -2,9 +2,11 @@ package middlewares
 
 import (
 	"context"
-	"github.com/vllvll/keepa/internal/repositories"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
+
+	"github.com/vllvll/keepa/internal/repositories"
 )
 
 func Auth(userRepository repositories.UserInterface, tokenRepository repositories.TokenInterface) grpc.UnaryServerInterceptor {

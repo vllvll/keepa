@@ -2,8 +2,13 @@ package repositories
 
 import (
 	"database/sql"
-	"github.com/vllvll/keepa/internal/types"
+	"log"
 	"time"
+
+	"github.com/jackc/pgerrcode"
+	"github.com/lib/pq"
+
+	"github.com/vllvll/keepa/internal/types"
 )
 
 type BankCard struct {
@@ -24,7 +29,12 @@ func NewBankCardRepository(db *sql.DB) BankCardInterface {
 func (b *BankCard) Get(id int64) (bankCard types.BankCard, err error) {
 	err = b.db.QueryRow("SELECT id, number, holder, cvv, meta, updated_at FROM bank_cards WHERE id = $1 LIMIT 1", id).
 		Scan(&bankCard.ID, &bankCard.Number, &bankCard.Holder, &bankCard.CVV, &bankCard.Meta, &bankCard.UpdatedAt)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return types.BankCard{}, err
 	}
 
@@ -45,7 +55,11 @@ func (b *BankCard) Create(bankCard types.BankCard, userId int64) (int64, error) 
 	)
 
 	err := row.Scan(&bankCardID)
-	if err != nil {
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return bankCardID, err
 	}
 
@@ -62,7 +76,12 @@ func (b *BankCard) Update(bankCard types.BankCard) error {
 		bankCard.Meta,
 		time.Now(),
 	)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 
@@ -74,7 +93,12 @@ func (b *BankCard) Delete(bankCardID int64) error {
 		"DELETE FROM bank_cards WHERE id = $1",
 		bankCardID,
 	)
-	if err != nil {
+
+	if err, ok := err.(*pq.Error); ok {
+		if pgerrcode.IsConnectionException(string(err.Code)) {
+			log.Fatalf("Error with database: %v", err)
+		}
+
 		return err
 	}
 

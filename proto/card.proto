@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package card;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vllvll/keepa/proto";
+
+message GetBankCardRequest {
+  int64 id = 1;
+}
+
+message CreateBankCardRequest {
+  string meta = 1;
+  string number = 2;
+  string holder = 3;
+  string cvv = 4;
+}
+
+message UpdateBankCardRequest {
+  string meta = 1;
+  int64 id = 2;
+  string number = 3;
+  string holder = 4;
+  string cvv = 5;
+}
+
+message DeleteBankCardRequest {
+  int64 id = 1;
+}
+
+message BankCardResponse {
+  string meta = 1;
+  int64 id = 2;
+  string number = 3;
+  string holder = 4;
+  string cvv = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}

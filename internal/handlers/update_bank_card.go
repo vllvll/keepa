@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"context"
-	"github.com/vllvll/keepa/internal/types"
-	pb "github.com/vllvll/keepa/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	pb "github.com/vllvll/keepa/gen"
+	"github.com/vllvll/keepa/internal/types"
 )
 
 func (k *KeepaServer) UpdateBankCard(ctx context.Context, in *pb.UpdateBankCardRequest) (*pb.BankCardResponse, error) {
@@ -25,11 +27,6 @@ func (k *KeepaServer) UpdateBankCard(ctx context.Context, in *pb.UpdateBankCardR
 
 	err := k.bankCardRepository.Update(bankCard)
 	if err != nil {
-		return nil, status.Error(codes.Internal, "Internal")
-	}
-
-	bankCard, err = k.bankCardRepository.Get(in.GetId())
-	if err != nil {
 		return nil, status.Error(codes.NotFound, "Not found")
 	}
 
@@ -39,7 +36,7 @@ func (k *KeepaServer) UpdateBankCard(ctx context.Context, in *pb.UpdateBankCardR
 		Number:    bankCard.Number,
 		Holder:    bankCard.Holder,
 		Cvv:       bankCard.CVV,
-		UpdatedAt: timestamppb.New(bankCard.UpdatedAt),
+		UpdatedAt: timestamppb.Now(),
 	}
 
 	return &bankCardResponse, nil
